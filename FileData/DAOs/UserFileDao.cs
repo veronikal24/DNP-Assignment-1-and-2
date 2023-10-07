@@ -1,4 +1,5 @@
 using Application.DaoInterfaces;
+using Domain_A1.DTOs;
 using Domain_A1.Models;
 using FileData.FileDaoImplem;
 
@@ -37,6 +38,17 @@ public class UserFileDao : IUserDaoA1
             u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase)
         );
         return Task.FromResult(existing);
+    }
+
+    public Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters)
+    {
+        IEnumerable<User> users = _contextA1.Users.AsEnumerable();
+        if (searchParameters.UsernameContains != null)
+        {
+            users = _contextA1.Users.Where(u => u.UserName.Contains(searchParameters.UsernameContains, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return Task.FromResult(users);
     }
     
     

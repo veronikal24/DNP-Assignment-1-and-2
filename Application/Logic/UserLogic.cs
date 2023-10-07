@@ -49,4 +49,9 @@ public class UserLogic: IUserLogic
         if (password == "1234")
             throw new Exception("OU common, even my grandma has better password");
     }
+    
+    public Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters)
+    {
+        return _userDaoA1.GetAsync(searchParameters);
+    }
 }

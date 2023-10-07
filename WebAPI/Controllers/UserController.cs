@@ -31,4 +31,19 @@ public class UsersController : Controller
             return StatusCode(500, e.Message);
         }
     }
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<User>>> GetAsync([FromQuery] string? username)
+    {
+        try
+        {
+            SearchUserParametersDto parameters = new(username);
+            IEnumerable<User> users = await _userLogic.GetAsync(parameters);
+            return Ok(users);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }
