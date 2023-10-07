@@ -1,4 +1,5 @@
 using Application.Logic;
+using Application.LogicInterfaces;
 using Domain_A1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Domain_A1.DTOs;
@@ -7,13 +8,13 @@ namespace WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UsersController : ControllerBase
+public class UsersController : Controller
 {
-    private readonly UserLogic userLogic;
+    private readonly IUserLogic _userLogic;
 
-    public UsersController(UserLogic userLogic)
+    public UsersController(IUserLogic userLogic)
     {
-        this.userLogic = userLogic;
+        this._userLogic = userLogic;
     }
 
     [HttpPost]
@@ -21,8 +22,8 @@ public class UsersController : ControllerBase
     {
         try
         {
-            User user = await userLogic.CreateAsync(dto);
-            return Created($"/users/{user.Id}", user);
+            User user = await _userLogic.CreateAsync(dto);
+            return Created($"/users/{user.UserName}", user);
         }
         catch (Exception e)
         {

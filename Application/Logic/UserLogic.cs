@@ -21,18 +21,13 @@ public class UserLogic: IUserLogic
             throw new Exception("Username already taken!");
 
         ValidateData(userToCreate);
-        User toCreate = new User
-        {
-            UserName = userToCreate.UserName,
-            Password = userToCreate.Password
-        };
-      
-    
+        User toCreate = new User(userToCreate.UserName, userToCreate.Password);
         User created = await _userDaoA1.CreateAsync(toCreate);
     
         return created;
         
     }
+
     private static void ValidateData(UserCreationDto userToCreate)
     {
         string userName = userToCreate.UserName;
@@ -42,6 +37,16 @@ public class UserLogic: IUserLogic
 
         if (userName.Length > 30)
             throw new Exception("Username must be less than 30 characters!");
-     
+
+
+        string password = userToCreate.Password;
+
+        if (password.Length < 3)
+            throw new Exception("Password must be at least 3 characters!");
+
+        if (password == userName)
+            throw new Exception("Password cannot be the same as the username");
+        if (password == "1234")
+            throw new Exception("OU common, even my grandma has better password");
     }
 }
