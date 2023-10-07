@@ -40,6 +40,14 @@ public class UserFileDao : IUserDaoA1
         return Task.FromResult(existing);
     }
 
+    public Task<User?> GetByIdAsync(int id)
+    {
+        User? existing = _contextA1.Users.FirstOrDefault(u =>
+            u.Id == id
+        );
+        return Task.FromResult(existing);
+    }
+
     public Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters)
     {
         IEnumerable<User> users = _contextA1.Users.AsEnumerable();

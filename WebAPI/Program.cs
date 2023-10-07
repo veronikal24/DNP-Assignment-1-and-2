@@ -18,6 +18,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<FileContextA1>();
 builder.Services.AddScoped<IUserDaoA1, UserFileDao>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
+builder.Services.AddScoped<IPostDao, PostFileDao>();
+builder.Services.AddScoped<IPostLogic, PostLogic>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
