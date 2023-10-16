@@ -18,7 +18,7 @@ public class PostFileDao: IPostDao
         int id = 1;
         if (context.Posts.Any())
         {
-            id = context.Posts.Max(t => t.User.Id);
+            id = context.Posts.Max(t => t.UserId);
             id++;
         }
         

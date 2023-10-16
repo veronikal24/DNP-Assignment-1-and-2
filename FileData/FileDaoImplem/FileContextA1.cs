@@ -33,8 +33,9 @@ public class FileContextA1
         {
             dataContainer = new ()
             {
+               
+                Users = new List<User>(),
                 Posts= new List<Post>(),
-                Users = new List<User>()
             };
             return;
         }
