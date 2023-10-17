@@ -33,6 +33,29 @@ public class PostController : Controller
             return StatusCode(500, e.Message);
         }
     }
+   
+    
+    [HttpGet("GetPostByTitle")]
+    public async Task<ActionResult<IEnumerable<Post>>> GetOnePost([FromQuery] string? title)
+    {
+        try
+        {
+            GetSpecificPostByTitleDto parameters = new(title);
+            var todos = await _postLogic.GetOnePostAsync(parameters);
+            return Ok(todos);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    [HttpGet("GetAllPosts")]
+    public async Task<IEnumerable<Post>> GetAllPosts()
+    {
+
+        return await _postLogic.GetAsync();
+    }
 
 
 }

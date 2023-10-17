@@ -28,11 +28,23 @@ public class PostLogic: IPostLogic
         Post created = await postDao.CreateAsync(todo);
         return created;
     }
+
+   
+
     private void ValidateTodo(PostCreationDto dto)
     {
         if (string.IsNullOrEmpty(dto.Title)) throw new Exception("Title cannot be empty.");
         // other validation stuff
     }
+    public Task<IEnumerable<Post>> GetAsync()
+    {
+        return postDao.GetAsync();
+    }
 
-   
+    public Task<IEnumerable<Post>> GetOnePostAsync(GetSpecificPostByTitleDto searchParameters)
+    {
+        return postDao.GetOnePostAsync(searchParameters);
+    }
 }
+    
+   
