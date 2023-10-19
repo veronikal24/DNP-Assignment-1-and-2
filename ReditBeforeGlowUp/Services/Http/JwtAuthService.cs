@@ -17,17 +17,29 @@ public class JwtAuthService : IAuthService
 
     public Task LogoutAsync()
     {
-        throw new NotImplementedException();
+        Jwt = null;
+        ClaimsPrincipal principal = new();
+        OnAuthStateChanged.Invoke(principal);
+        return Task.CompletedTask;
     }
 
-    public Task RegisterAsync(User user)
+    public async  Task RegisterAsync(User user)
     {
-        throw new NotImplementedException();
+        string userAsJson = JsonSerializer.Serialize(user);
+        StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync("https://localhost:7150/auth/register", content);
+        string responseContent = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(responseContent);
+        }
     }
 
     public Task<ClaimsPrincipal> GetAuthAsync()
     {
-        throw new NotImplementedException();
+        ClaimsPrincipal principal = CreateClaimsPrincipal();
+        return Task.FromResult(principal);
     }
 
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!;
@@ -82,8 +94,9 @@ public class JwtAuthService : IAuthService
 
         string userAsJson = JsonSerializer.Serialize(userLoginDto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
-
-        HttpResponseMessage response = await client.PostAsync("https://localhost:7130/auth/login", content);
+        Console.WriteLine(content);
+        HttpResponseMessage response = await client.PostAsync("http://localhost:5104/Auth/login", content);
+        Console.WriteLine(response);
         string responseContent = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
