@@ -10,4 +10,9 @@
       <ProjectReference Include="..\Domain A1\Domain A1.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.7" />
+      <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.12" />
+    </ItemGroup>
+
 </Project>

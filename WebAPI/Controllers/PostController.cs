@@ -5,6 +5,7 @@ using Application.LogicInterfaces;
 using Domain_A1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Domain_A1.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers;
 
@@ -19,7 +20,7 @@ public class PostController : Controller
         this._postLogic= postLogic;
     }
 
-    [HttpPost]
+    [HttpPost, Authorize]
     public async Task<ActionResult<Post>> CreateAsync([FromBody]PostCreationDto dto)
     {
         try
@@ -35,7 +36,7 @@ public class PostController : Controller
     }
    
     
-    [HttpGet("GetPostByTitle")]
+    [HttpGet("GetPostByTitle"), AllowAnonymous]
     public async Task<ActionResult<IEnumerable<Post>>> GetOnePost([FromQuery] string? title)
     {
         try
@@ -50,7 +51,8 @@ public class PostController : Controller
             return StatusCode(500, e.Message);
         }
     }
-    [HttpGet("GetAllPosts")]
+    
+    [HttpGet("GetAllPosts"), AllowAnonymous]
     public async Task<IEnumerable<Post>> GetAllPosts()
     {
 

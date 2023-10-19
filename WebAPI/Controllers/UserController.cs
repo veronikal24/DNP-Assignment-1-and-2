@@ -3,6 +3,7 @@ using Application.LogicInterfaces;
 using Domain_A1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Domain_A1.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers;
 
@@ -31,7 +32,7 @@ public class UsersController : Controller
             return StatusCode(500, e.Message);
         }
     }
-    [HttpGet]
+    [HttpGet, Authorize]
     public async Task<ActionResult<IEnumerable<User>>> GetAsync([FromQuery] string? username)
     {
         try
