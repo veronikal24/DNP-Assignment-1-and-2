@@ -1,4 +1,71 @@
+﻿@page "/ViewAllPosts"
+@using Domain_A1.Models
+@using ReditBeforeGlowUp.Services.Http.Implementations
+
+@inject IPostInterface ipostService
+
 <h3>ViewAllPosts</h3>
+
+<h3>All Posts</h3>
+
+<div>
+    <button @onclick="LoadTodos">Load</button>
+</div>
+
+
+@if (todos == null)
+{
+}
+else if (!todos.Any())
+{
+    <p>No Posts to view</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Body</th>
+            <th> User Id </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in todos)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Body</td>
+                <td>@item.UserId</td>
+
+
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+@if (!string.IsNullOrEmpty(msg))
+{
+    <label style="color: red">@msg</label>
+}
+
+@code {
+    private IEnumerable<Post>? todos;
+    private string msg = "";
+
+    private async Task LoadTodos()
+    {
+        try
+        {
+            todos = await ipostService.GetAllAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+}
 
 
 

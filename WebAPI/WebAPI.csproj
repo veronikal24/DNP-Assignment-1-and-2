@@ -18,6 +18,7 @@
       <ProjectReference Include="..\Domain A1\Domain A1.csproj" />
       <ProjectReference Include="..\FileData\FileData.csproj" />
       <ProjectReference Include="..\HttpClient\HttpClient.csproj" />
+      <ProjectReference Include="..\ReditBeforeGlowUp\ReditBeforeGlowUp.csproj" />
       <ProjectReference Include="..\SharedFolder\SharedFolder.csproj" />
     </ItemGroup>
 

@@ -13,18 +13,17 @@ public class AuthService : IAuthService
     {
         new User
         {
-           
-            
             Domain = "via",
             Name = "Veronika Lietavcova",
-            Password = "123",
-            Role = "Student",
-            Username = "Veronika",
+            Password = "VeronikaISTesting",
+            Role = "Teacher",
+            Username = "VeronikaISTesting",
             SecurityLevel = 4,
             Email = "Vli@via.dk",
             Age = 23,
             
         },
+        
      
     };
 

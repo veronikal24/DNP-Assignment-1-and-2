@@ -14,9 +14,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 builder.Services.AddScoped<IAuthService, JwtAuthService>();
+
 //builder.Services.AddScoped<IUserService, UserHttpClient>();
 AuthorizationPolicies.AddPolicies(builder.Services);
-builder.Services.AddScoped(sp => new HttpClient());
+builder.Services.AddScoped(sp => new HttpClient{BaseAddress = new Uri("http://localhost:5104/")});
+builder.Services.AddScoped<IPostInterface, PostHttpClient>();
 // builder.Services.AddScoped(sp => new HttpClient() { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddAuthorizationCore();
