@@ -6,6 +6,7 @@ using ReditBeforeGlowUp;
 using ReditBeforeGlowUp.Auth;
 using ReditBeforeGlowUp.Services;
 using ReditBeforeGlowUp.Services.Http;
+using ReditBeforeGlowUp.Services.Http.Implementations;
 using SharedFolder.Auth;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -13,6 +14,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 builder.Services.AddScoped<IAuthService, JwtAuthService>();
+//builder.Services.AddScoped<IUserService, UserHttpClient>();
 AuthorizationPolicies.AddPolicies(builder.Services);
 builder.Services.AddScoped(sp => new HttpClient());
 // builder.Services.AddScoped(sp => new HttpClient() { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
@@ -21,6 +23,7 @@ builder.Services.AddAuthorizationCore();
 
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -9,29 +9,23 @@ public class AuthService : IAuthService
 {
 
     private readonly IList<User> users = new List<User>
+    
     {
         new User
         {
-            Age = 36,
-            Email = "trmo@via.dk",
+           
+            
             Domain = "via",
-            Name = "Troels Mortensen",
-            Password = "onetwo3FOUR",
-            Role = "Teacher",
-            Username = "trmo",
-            SecurityLevel = 4
-        },
-        new User
-        {
-            Age = 34,
-            Email = "jakob@gmail.com",
-            Domain = "gmail",
-            Name = "Jakob Rasmussen",
-            Password = "password",
+            Name = "Veronika Lietavcova",
+            Password = "123",
             Role = "Student",
-            Username = "jknr",
-            SecurityLevel = 2
-        }
+            Username = "Veronika",
+            SecurityLevel = 4,
+            Email = "Vli@via.dk",
+            Age = 23,
+            
+        },
+     
     };
 
     public Task<User> ValidateUser(string username, string password)
@@ -62,9 +56,7 @@ public class AuthService : IAuthService
         {
             throw new ValidationException("Password cannot be null");
         }
-        // Do more user info validation here
-        
-        // save to persistence instead of list
+  
         
         users.Add(user);
         
