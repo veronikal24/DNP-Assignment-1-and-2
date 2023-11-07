@@ -1,0 +1,118 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page background and font styles */
+body {
+    background-color: #f6f7f8;
+    font-family: Arial, sans-serif;
+}
+
+/* Header styles */
+header {
+    background-color: #0079d3;
+    color: #ffffff;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    max-height: 30px;
+    margin: 0 10px;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+nav ul li:hover {
+    text-decoration: underline;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.user-info a {
+    color: #ffffff;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+/* Post card styles */
+.post-card {
+    background-color: #ffffff;
+    border: 1px solid #e6e6e6;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.post-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.post-body {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.user-info {
+    font-size: 0.9rem;
+    color: #777777;
+}
+
+.vote-buttons {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.vote-buttons button {
+    background-color: transparent;
+    border: none;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* Comment section styles */
+.comments {
+    margin-top: 20px;
+    border-top: 1px solid #e6e6e6;
+    padding-top: 20px;
+}
+
+.comment {
+    border: 1px solid #e6e6e6;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.comment-body {
+    font-size: 1rem;
+}
+
+.comment-info {
+    font-size: 0.9rem;
+    color: #777777;
+}
+
+/* Add more CSS rules as needed */
+

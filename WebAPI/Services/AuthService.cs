@@ -23,6 +23,18 @@ public class AuthService : IAuthService
             Age = 23,
             
         },
+        new User
+        {
+            Domain = "via",
+            Name = "Veronika Lietavcova",
+            Password = "dsasdfasdfasdfdsdf",
+            Role = "Teacher",
+            Username = "SPECIALPACKAGE",
+            SecurityLevel = 4,
+            Email = "Vli@via.dk",
+            Age = 23,
+            
+        },
         
      
     };

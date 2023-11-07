@@ -1,5 +1,6 @@
 @page "/Login"
 @using ReditBeforeGlowUp.Services
+@inject NavigationManager Navigation
 @inject IAuthService authService
 @inject NavigationManager navMgr
 <AuthorizeView>
@@ -33,7 +34,14 @@
         </div>
     </Authorized>
 </AuthorizeView>
-<h3>Login</h3>
+
+
+<h3>Do not have an account ? </h3>
+
+<Button Color="ButtonColor.Primary"  Size="Size.Small" 
+         @onclick="((args) => OnClick())"> Register Now </Button>
+
+<p> You can still view all posts, but you cannot posts yourself without being logged in</p>
 
 @code {
     private string userName;
@@ -53,5 +61,12 @@
             Console.WriteLine(e);
             errorLabel = $"Error: {e.Message}";
         }
+    }
+    
+    private void OnClick()
+    { 
+        Console.WriteLine("Navigating to User");
+        Navigation.NavigateTo($"/RegisterUser");
+        Console.WriteLine("Navigating to User");
     }
 }

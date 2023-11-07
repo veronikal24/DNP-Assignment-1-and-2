@@ -1,3 +1,4 @@
+using System.Text;
 using Domain_A1.Models;
 
 namespace ReditBeforeGlowUp.Services.Http.Implementations;
@@ -50,9 +51,31 @@ public class PostHttpClient : IPostInterface
         return todos;
     }
 
-    public Task<ICollection<Post>> GetByTitleAsync(string? title)
+    public async Task<ICollection<Post>> GetByTitleAsync(string Title)
     {
-        throw new NotImplementedException();
+  
+        Title = Title.Replace(" ", "%20");
+        HttpResponseMessage response = await client.GetAsync("/Post/GetPostByTitle?title="+Title);
+       
+        if (response.IsSuccessStatusCode)
+        {
+            // The request was successful (HTTP status code 200-299).
+            string content = await response.Content.ReadAsStringAsync();
+
+            // Deserialize the response content if it represents JSON data.
+            ICollection<Post> posts = JsonSerializer.Deserialize<ICollection<Post>>(content, new JsonSerializerOptions
+            { PropertyNameCaseInsensitive = true }); 
+            return posts;
+        }
+        else
+        {
+            throw new HttpRequestException($"API request failed with status code: {response.StatusCode}");
+        }
+
+        
     }
+
+
+
 }
 

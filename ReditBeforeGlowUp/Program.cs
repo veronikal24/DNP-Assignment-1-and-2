@@ -19,6 +19,7 @@ builder.Services.AddScoped<IAuthService, JwtAuthService>();
 AuthorizationPolicies.AddPolicies(builder.Services);
 builder.Services.AddScoped(sp => new HttpClient{BaseAddress = new Uri("http://localhost:5104/")});
 builder.Services.AddScoped<IPostInterface, PostHttpClient>();
+builder.Services.AddScoped<IUserService, UserHttpClient>();
 // builder.Services.AddScoped(sp => new HttpClient() { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddAuthorizationCore();
@@ -44,4 +45,4 @@ app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
-app.Run();
+await app.RunAsync();

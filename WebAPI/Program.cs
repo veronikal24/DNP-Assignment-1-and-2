@@ -26,8 +26,6 @@ builder.Services.AddScoped<IUserDaoA1, UserFileDao>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<IPostDao, PostFileDao>();
 builder.Services.AddScoped<IPostLogic, PostLogic>();
-builder.Services.AddScoped<IPostInterface, PostHttpClient >();
-
 builder.Services.AddScoped<IAuthService, AuthService>();
 // added auth handling
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
