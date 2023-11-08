@@ -4,8 +4,8 @@
 @using Domain_A1.DTOs
 @using ReditBeforeGlowUp.Services.Http
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IPostInterface postService
-@inject IUserService iuserService
+@inject IPostService postService
+@inject IUserService IuserService
 @inject NavigationManager Navigation
 @attribute [Authorize]
 <h3>Create A Post</h3>
@@ -46,7 +46,7 @@
         {
             userName = user.Identity.Name;
         }
-       ICollection<Domain_A1.Models.User> users = await iuserService.GetUserByNameAsync(userName);
+       ICollection<Domain_A1.Models.User> users = await IuserService.GetUserByNameAsync(userName);
 
    
         if (users.Count > 0)

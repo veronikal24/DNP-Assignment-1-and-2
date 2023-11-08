@@ -18,7 +18,7 @@ builder.Services.AddScoped<IAuthService, JwtAuthService>();
 //builder.Services.AddScoped<IUserService, UserHttpClient>();
 AuthorizationPolicies.AddPolicies(builder.Services);
 builder.Services.AddScoped(sp => new HttpClient{BaseAddress = new Uri("http://localhost:5104/")});
-builder.Services.AddScoped<IPostInterface, PostHttpClient>();
+builder.Services.AddScoped<IPostService, PostHttpClient>();
 builder.Services.AddScoped<IUserService, UserHttpClient>();
 // builder.Services.AddScoped(sp => new HttpClient() { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 

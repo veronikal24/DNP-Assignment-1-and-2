@@ -8,7 +8,7 @@ using System.Text.Json;
 using Domain_A1.DTOs;
 using SharedFolder.Models;
 
-public class PostHttpClient : IPostInterface
+public class PostHttpClient : IPostService
 {
     private readonly HttpClient client;
 

@@ -1,5 +1,5 @@
 @page "/RegisterUser"
-@inject IUserService iuserService
+@inject IUserService IuserService
 @inject NavigationManager Navigation
 @inject IJSRuntime JSRuntime
 <h3>RegisterUser</h3>
@@ -61,7 +61,7 @@ else
         UserCreationDto dto = new UserCreationDto(user.UserName, user.Password);
         try
         {
-            await iuserService.CreateAsync(dto);
+            await IuserService.CreateAsync(dto);
             registrationSuccess = true; // Move this line inside the try block if the registration is successfu
 
             var returnUrl = Navigation.ToBaseRelativePath(Navigation.Uri);
