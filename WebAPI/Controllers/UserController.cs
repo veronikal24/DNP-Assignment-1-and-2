@@ -32,7 +32,7 @@ public class UsersController : Controller
             return StatusCode(500, e.Message);
         }
     }
-    [HttpGet, Authorize]
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetAsync([FromQuery] string? username)
     {
         try

@@ -15,24 +15,40 @@ public class UserHttpClient : IUserService
     public UserHttpClient(HttpClient client)
     {
         this.client = client;
-        client.Timeout = TimeSpan.FromSeconds(30);
+        client.Timeout = TimeSpan.FromSeconds(300);
     }
     
-    public async  Task CreateAsync(UserCreationDto dto)
+    public async  Task  CreateAsync(UserCreationDto dto)
     {
+        try
+        {
+          
+            var json = JsonSerializer.Serialize(dto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync("/Users", content);
+
+            //HttpResponseMessage response = await client.PostAsJsonAsync("/Users", dto);
         
-            HttpResponseMessage response = await client.PostAsJsonAsync("/Users", dto);
             string result = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine("Could not register the users" + dto.UserName );
                 throw new Exception(result);
             }
-
             User user = JsonSerializer.Deserialize<User>(result)!;
             Console.WriteLine("Registered User:" + user.Username );
-        
-
+        }
+        catch (TaskCanceledException ex)
+        {
+            // Handle the cancellation exception here
+            Console.WriteLine($"Operation was canceled: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Handle other exceptions
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+       
     }
 
     public async Task<ICollection<Domain_A1.Models.User>> GetUserByNameAsync(string? name)
@@ -44,11 +60,11 @@ public class UserHttpClient : IUserService
         {
             // The request was successful (HTTP status code 200-299).
             string content = await response.Content.ReadAsStringAsync();
-
-            // Deserialize the response content if it represents JSON data.
-            ICollection<Domain_A1.Models.User> posts = JsonSerializer.Deserialize<ICollection<Domain_A1.Models.User>>(content, new JsonSerializerOptions
-                { PropertyNameCaseInsensitive = true });
-            return posts;
+            
+            return JsonSerializer.Deserialize<ICollection<Domain_A1.Models.User>>(content, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
         }
         else
         {

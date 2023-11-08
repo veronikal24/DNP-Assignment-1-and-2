@@ -19,21 +19,48 @@ public class PostHttpClient : IPostInterface
 
   
 
-    public async Task CreateAsync(PostCreationDto dto)
+    public  async Task  CreateAsync(PostCreationDto dto)
     {
-        HttpResponseMessage response = await client.PostAsJsonAsync("/Post", dto);
-        string result = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
+        try
         {
-            throw new Exception(result);
-        }
+            HttpResponseMessage response = await client.PostAsJsonAsync("/Post", dto);
 
-        Post post = JsonSerializer.Deserialize<Post>(result, new JsonSerializerOptions
+            if (response.IsSuccessStatusCode)
+            {
+                string result = await response.Content.ReadAsStringAsync();
+                Post post = JsonSerializer.Deserialize<Post>(result, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                })!;
+            
+                // Optionally, you can return the created post or perform further actions.
+            }
+            else
+            {
+                // Handle the case when the HTTP request was not successful
+                // You might want to log the response content or specific error details
+                string errorContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"HTTP request failed with status code: {response.StatusCode}");
+                Console.WriteLine($"Error content: {errorContent}");
+
+                // You can throw a custom exception or handle the error as needed
+                throw new Exception($"HTTP request failed with status code: {response.StatusCode}");
+            }
+        }
+        catch (HttpRequestException ex)
         {
-            PropertyNameCaseInsensitive = true
-        })!;
-      
+            // Handle network-related errors
+            Console.WriteLine($"HTTP request error: {ex.Message}");
+            throw new Exception("Network error occurred during the HTTP request.", ex);
+        }
+        catch (Exception ex)
+        {
+            // Handle other exceptions that may occur during the HTTP request
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            throw;
+        }
     }
+    
 
     public async Task<ICollection<Post>> GetAllAsync()
     {

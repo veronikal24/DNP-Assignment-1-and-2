@@ -13,11 +13,11 @@
 }
 
 .loginbtn {
-    background-color:lightgreen;
-    border-radius: 5px;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    background-color:white;
+    border-radius: 50px;
+    padding: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 .loginbtn:hover{

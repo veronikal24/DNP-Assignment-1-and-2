@@ -1,21 +1,31 @@
 @page "/RegisterUser"
 @inject IUserService iuserService
 @inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
 <h3>RegisterUser</h3>
 
 
 @using Domain_A1.Models
 @using ReditBeforeGlowUp.Services.Http
 @using Domain_A1.DTOs
+@using System.Data
+@using Microsoft.AspNetCore.Mvc.RazorPages
 
 <h3>User Registration</h3>
-
 @if (registrationSuccess)
 {
     <p>Registration successful!</p> 
 }
+else if (showNotification)
+{
+    <div class="notification">
+     <p>Registration not at all successful!</p> 
+        @message
+    </div>
+}
 else
 {
+
     <form>
         <div class="form-group">
             <label for="userName">Username</label>
@@ -35,14 +45,6 @@ else
         </div>
         <button class="btn btn-primary" @onclick="RegisterUserPlease">Register</button>
     </form>
-    
-    <!-- Notification.razor -->
-@if (showNotification)
-{
-    <div class="notification">
-        @message
-    </div>
-}
 }
 
 @code {
@@ -52,7 +54,6 @@ else
     private bool showNotification = false;
     private string message = "";
 
-    
     async Task RegisterUserPlease()
     {
         user.UserName = user.UserName;
@@ -61,29 +62,27 @@ else
         try
         {
             await iuserService.CreateAsync(dto);
-            Navigation.NavigateTo($"/Login");
-            
+            registrationSuccess = true; // Move this line inside the try block if the registration is successfu
+
+            var returnUrl = Navigation.ToBaseRelativePath(Navigation.Uri);
+
+            if (string.IsNullOrWhiteSpace(returnUrl))
+                Navigation.NavigateTo("/Login", true);
+            else
+                Navigation.NavigateTo($"/Login?returnUrl={returnUrl}", true);
         }
-        catch
+        catch (Exception ex)
         {
+            Console.Write("Registration Failed");
+            message = "Registration failed";
             registrationSuccess = false;
-            Navigation.NavigateTo("/ViewAllPosts");
         }
+    }
         
       
-       
 
+        
+        
     }
-    public void ShowNotification(string message)
-    {
-        this.message = message;
-        showNotification = true;
 
-    // Automatically hide the notification after a few seconds
-        Task.Delay(5000).ContinueWith(_ =>
-        {
-            showNotification = false;
-            StateHasChanged(); // Notify Blazor to re-render
-        });
-    }
 }

@@ -2,7 +2,7 @@
 @using System.Security.Claims
 <AuthorizeView>
     <Authorized>
-        <h3>Hello @context.User.Identity.Name</h3>
+        <h3>Welcome to Reddit Before Glow UP:  @context.User.Identity.Name</h3>
         <p>@context.User.Claims.First(claim => claim.Type.Equals(ClaimTypes.Role)).Value</p>
       
     </Authorized>

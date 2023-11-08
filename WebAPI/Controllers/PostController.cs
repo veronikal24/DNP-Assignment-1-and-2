@@ -20,7 +20,7 @@ public class PostController : Controller
         this._postLogic= postLogic;
     }
 
-    [HttpPost, Authorize]
+    [HttpPost]
     public async Task<ActionResult<Post>> CreateAsync([FromBody]PostCreationDto dto)
     {
         try

@@ -5,27 +5,29 @@
 @inject NavigationManager navMgr
 <AuthorizeView>
     <NotAuthorized>
-        <div class="card">
-            <h3>Please login</h3>
-            <div class="field">
-                <label>User name:</label>
-                <input type="text" @bind="userName"/>
-            </div>
-            <div class="field">
-                <label style="text-align: center">Password:</label>
-                <input type="password" @bind="password"/>
-            </div>
-            @if (!string.IsNullOrEmpty(errorLabel))
-            {
+        <div class="login-container">
+            <div class="login-card">
+                <h3>Login</h3>
                 <div class="field">
-                    <label style="color: red">
-                        @errorLabel
-                    </label>
+                    <label for="userName">User name:</label>
+                    <input type="text" id="userName" @bind="userName" class="form-control"/>
                 </div>
-            }
-            <div class="field">
-                <button class="loginbtn" @onclick="LoginAsync">Log in</button>
-            </div>
+                <div class="field">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" @bind="password" class="form-control"/>
+                </div>
+                @if (!string.IsNullOrEmpty(errorLabel))
+                {
+                    <div class="field error-message">
+                        @errorLabel
+                    </div>
+                }
+                <div class="nav-item px-3">
+                    <div class="field">
+                        <button class="login-btn" @onclick="LoginAsync">Log in</button>
+                    </div>
+                </div>
+                </div>
         </div>
     </NotAuthorized>
     <Authorized>
@@ -34,14 +36,11 @@
         </div>
     </Authorized>
 </AuthorizeView>
-
-
-<h3>Do not have an account ? </h3>
-
-<Button Color="ButtonColor.Primary"  Size="Size.Small" 
-         @onclick="((args) => OnClick())"> Register Now </Button>
-
-<p> You can still view all posts, but you cannot posts yourself without being logged in</p>
+<div class="nav-item px-30" style="margin-top: 80px;">
+<h3>Don't have an account?</h3>
+<Button Color="ButtonColor.Primary" Size="Size.Small" @onclick="OnClick">Register Now</Button>
+</div>
+<p>You can still view all posts, but you cannot post yourself without being logged in</p>
 
 @code {
     private string userName;
@@ -62,7 +61,7 @@
             errorLabel = $"Error: {e.Message}";
         }
     }
-    
+
     private void OnClick()
     { 
         Console.WriteLine("Navigating to User");

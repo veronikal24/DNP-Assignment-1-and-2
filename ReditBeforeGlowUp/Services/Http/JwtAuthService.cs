@@ -101,15 +101,43 @@ public class JwtAuthService : IAuthService
 
         if (!response.IsSuccessStatusCode)
         {
-            throw new Exception(responseContent);
+            response = await client.GetAsync("http://localhost:5104/Users?username="+ username);
+            responseContent = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(responseContent);
+            }
+            else
+            {
+                if (responseContent == "[]")
+                {
+                    throw new Exception("User not registered");
+                }
+                else
+                {
+                    string token = responseContent;
+                    Jwt = token;
+
+                    ClaimsPrincipal principal = CreateClaimsPrincipal();
+
+                    OnAuthStateChanged.Invoke(principal);
+                }
+
+
+            }
+        }
+        else
+        {
+            string token = responseContent;
+            Jwt = token;
+            ClaimsPrincipal principal = CreateClaimsPrincipal();
+
+            OnAuthStateChanged.Invoke(principal);
+          
+
         }
 
-        string token = responseContent;
-        Jwt = token;
-
-        ClaimsPrincipal principal = CreateClaimsPrincipal();
-
-        OnAuthStateChanged.Invoke(principal);
+   
     }
 }
     
